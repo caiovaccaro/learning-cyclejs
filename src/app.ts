@@ -12,20 +12,19 @@ interface ISinks {
 }
 
 function main(sources: ISources): ISinks {
-  const dom = sources.dom;
   const sinks: ISinks = {
-    dom: dom.select('.field').events('input')
-      .map(ev => (ev.target as HTMLInputElement).value)
-      .startWith('')
-      .map(name =>
+    dom: Stream.of(1)
+      .map(() =>
         div('#root', [
-          label('Name:'),
-          input('.field', { attrs: { type: 'text', value: name } }),
-          hr(),
-          h1(name ? `Hello, ${name}!` : 'Hello! Please enter your name...'),
+          div('.wrap.container-fluid', [
+            div('.row.item-container', [
+              h1('', 'Test')
+            ])
+          ])
         ])
       )
   };
+
   return sinks;
 }
 
