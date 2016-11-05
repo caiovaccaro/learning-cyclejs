@@ -2,7 +2,7 @@ import { Stream } from 'xstream';
 import { div, h1, makeDOMDriver } from '@cycle/dom';
 import { run } from '@cycle/xstream-run';
 
-function main(sources) {
+function main() {
   return {
     dom: Stream.of(1)
       .map(() =>
