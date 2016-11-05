@@ -2,6 +2,10 @@ import { Stream } from 'xstream';
 import { button, input, div, h1, makeDOMDriver } from '@cycle/dom';
 import { run } from '@cycle/xstream-run';
 
+// What if we have two events?
+// How can we combine two values
+// and use them in the DOM?
+
 function main(sources) {
   const inputEvent$ = sources.dom.select('.field')
     .events('input')
@@ -14,41 +18,15 @@ function main(sources) {
 
   const count$ = buttonEvent$.fold((acc, x) => acc + x, 0)
 
-  const events$ = Stream.combine(
-    inputEvent$,
-    count$
-  ).map(([text, number]) => {
-    return { text, number }
-  });
-
   return {
-    dom: events$
-      .map(({text, number}) =>
+    dom: Stream.of(1)
+      .map(() =>
         div('#root', [
-          renderTitle(text, number),
-          renderInput(),
-          renderButton()
+          h1('', 'Test'),
+          input('.field', {attrs: {type: 'text'}})
         ])
       )
   };
-
-  function renderTitle(text, number) {
-    return div([
-      h1('', text + ' ' + number)
-    ])
-  }
-
-  function renderInput() {
-    return div([
-      input('.field', {attrs: {type: 'text'}})
-    ])
-  }
-
-  function renderButton() {
-    return div([
-      button('.inc', 'Increment')
-    ])
-  }
 }
 
 run(main, {
