@@ -1,13 +1,16 @@
 import { Stream } from 'xstream';
-import { div, h1, makeDOMDriver } from '@cycle/dom';
+import { input, div, h1, makeDOMDriver } from '@cycle/dom';
 import { run } from '@cycle/xstream-run';
 
 function main(sources) {
   return {
-    dom: Stream.of(1)
-      .map(() =>
+    dom: sources.dom.select('.field').events('input')
+      .map(ev => ev.target.value)
+      .startWith('Test')
+      .map(value =>
         div('#root', [
-          h1('', 'Test')
+          h1('', value),
+          input('.field', {attrs: {type: 'text'}})
         ])
       )
   };
