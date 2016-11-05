@@ -4,12 +4,10 @@ import { run } from '@cycle/xstream-run';
 
 function main(sources) {
   return {
-    dom: sources.dom.select('.field').events('input')
-      .map(ev => ev.target.value)
-      .startWith('Test')
-      .map(value =>
+    dom: Stream.of(1)
+      .map(() =>
         div('#root', [
-          h1('', value),
+          h1('', 'Test'),
           input('.field', {attrs: {type: 'text'}})
         ])
       )
