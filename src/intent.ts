@@ -1,4 +1,4 @@
-function intent(domSource) {
+export default function intent(domSource) {
 	return {
 		inputEvent$: domSource.select('.field')
 			.events('input')
@@ -7,5 +7,3 @@ function intent(domSource) {
 			.events('click')
 	}
 }
-
-export default intent;

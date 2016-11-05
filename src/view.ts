@@ -3,7 +3,7 @@ import Title from './components/title';
 import Button from './components/button';
 import Input from './components/input';
 
-function view(state$) {
+export default  function view(state$) {
 	return state$
 		.map(({text, number}) =>
 			div('#root', [
@@ -13,5 +13,3 @@ function view(state$) {
 			])
 	)
 }
-
-export default view;
